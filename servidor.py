@@ -168,8 +168,10 @@ class Server:
         sorteio = self.__tree_sorteios.search(nome)
         criador = sorteio.value.adm
         if cpf == criador.value.cpf:
-            sorteado, numero = sorteio.value.sortear().split()
-            resposta = f'Número sorteado: {numero}\nVencedor: {sorteado}'
+            numero = sorteio.value.sortear()
+            sorteado = sorteio.value.vencedor(numero)
+            cpfsorteado = sorteado.value.cpf
+            resposta = f'Número sorteado: {numero}\nVencedor: {cpfsorteado}'
         else:
             resposta = '406'
         client_socket.send(resposta.encode())

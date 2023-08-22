@@ -26,7 +26,7 @@ class HashTable:
         return self.__put(chave, valor)
 
     def __put(self, chave, valor):
-        indice = self.__hash(chave)
+        indice = int(chave)
 
         for entry in self.__table[indice]:
             if entry.chave == indice:
@@ -49,12 +49,14 @@ class HashTable:
         return self.__get(chave)
 
     def __get(self, chave):
-        indice = self.__hash(chave)
+        indice = chave
+        chave = str(chave)
 
         for entry in self.__table[indice]:
             if entry.chave == chave:
-                return entry.valor
-        return -1
+                node = entry.valor
+
+        return node
     
     def __str__(self):
         s = ''
@@ -64,3 +66,11 @@ class HashTable:
             else:
                 s += f'{i}: {self.__table[i]}\n'
         return s
+    
+if __name__ == '__main__':
+    t = HashTable(4)
+    t.put(1, 'comprei 1')
+    t.put(2, 'comprei 2')
+    t.put(3, 'comprei 3')
+    t.put(0, 'comprei 0')
+    print(t)

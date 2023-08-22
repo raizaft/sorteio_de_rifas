@@ -41,8 +41,11 @@ class Sorteio:
     def sortear(self):
         s = self.comprados()
         slot = random.choice(s)
+        return slot
+    
+    def vencedor(self, slot):
         sorteado = self.numeros.get(slot)
-        return f'{sorteado} {slot}'
+        return sorteado
     
     def imprime(self):
         s = f'{self.__nome} | {self.tamanho}\n'
@@ -64,9 +67,8 @@ class Sorteio:
 if __name__ == '__main__':
     s = Sorteio('amora', 4, 'raiza')
     s.comprar(0, 'lucas')
-    s.comprar(1, 'lucas')
-    s.comprar(2, 'lucas')
-    # s.comprar(3, 'lucas')
+    #s.comprar(1, 'lucas')
+    #s.comprar(2, 'lucas')
+    #s.comprar(3, 'lucas')
     print(s.numeros_disponiveis())
-
-    print(s.sortear())
+    print(s.comprados())

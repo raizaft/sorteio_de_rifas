@@ -49,9 +49,9 @@ def main():
                 codigo = enviar_mensagem(f'REGISTRAR {registro}')
                 cls()
                 if codigo == "200":
-                    print("Usuário cadastrado com sucesso!")
+                    print(CODIGOS_SERVIDOR['200'])
                 elif codigo == '400':
-                    print("Usuário já cadastrado!")
+                    print(CODIGOS_SERVIDOR['400'])
         elif op == '2':
             cls()
             logar = login()
@@ -59,9 +59,9 @@ def main():
                 codigo = enviar_mensagem(f'LOGAR {logar}')
                 cls()
                 if codigo == '401':
-                    print("Usuário não encontrado.")
+                    print(CODIGOS_SERVIDOR['401'])
                 elif codigo == '402':
-                    print("Senha incorreta!")
+                    print(CODIGOS_SERVIDOR['402'])
                 else:
                     cls()
                     print(f"Logado como: {codigo}")
@@ -73,15 +73,15 @@ def main():
                             resposta = enviar_mensagem(f'CRIAR {sorteio} {codigo}')
                             cls()
                             if resposta == '403':
-                                print('Sorteio já existe.')
+                                print(CODIGOS_SERVIDOR['403'])
                             else:
-                                print('Sorteio criado com sucesso.')
+                                print(CODIGOS_SERVIDOR['201'])
                         elif choice == '2':
                             cls()
                             print('SORTEIOS DISPONÍVEIS\n')
                             resposta = enviar_mensagem('VER')
                             if resposta == '404':
-                                print('Nenhum sorteio disponível.')
+                                print(CODIGOS_SERVIDOR['404'])
                             else:
                                 print(resposta)
                         elif choice == '3':
@@ -89,7 +89,7 @@ def main():
                             print('SORTEIOS DISPONÍVEIS\n')
                             resposta = enviar_mensagem('VER')
                             if resposta == '404':
-                                print('Nenhum sorteio disponível.')
+                                print(CODIGOS_SERVIDOR['404'])
                             else:
                                 print(resposta)
                                 nome = input('Nome do sorteio que deseja participar: ')
@@ -97,7 +97,10 @@ def main():
                                 resposta = enviar_mensagem(f'DISPONIVEIS {nome}')
                                 if resposta == '405':
                                     cls()
-                                    print('Sorteio não existe.')
+                                    print(CODIGOS_SERVIDOR['405'])
+                                elif resposta == '407':
+                                    cls()
+                                    print(CODIGOS_SERVIDOR['407'])
                                 else:
                                     print(f'Sorteio - {nome}')
                                     print('Números disponíveis:')
@@ -111,12 +114,9 @@ def main():
                                             cls()
                                             print('Insira um número válido.')
                                     resposta = enviar_mensagem(f'PARTICIPAR {nome} {numero} {codigo}')
-                                    if resposta == '407':
+                                    if resposta == '202':
                                         cls()
-                                        print('Números esgotados.')
-                                    elif resposta == '202':
-                                        cls()
-                                        print('Compra realizada.')
+                                        print(CODIGOS_SERVIDOR['202'])
                         elif choice == '4':
                             cls()
                             resposta = enviar_mensagem(f'PARTICIPANDO {codigo}')
@@ -139,6 +139,8 @@ def main():
                                     else:
                                         print(resultado)
                         elif choice == '5':
+                            resposta = enviar_mensagem(f'RESULTADOS')
+                        elif choice == '6':
                             cls()
                             break
         elif op == '3':
@@ -232,11 +234,12 @@ MENU PRINCIPAL
 2. Ver Sorteios
 3. Participar de Sorteio
 4. Meus Sorteios
-5. Sair
+5. Resultados
+6. Sair
                 ''')
             op = input("Digite a opção desejada: ")
 
-            if op not in ('1','2','3','4','5'):
+            if op not in ('1','2','3','4','5','6'):
                 cls()
                 print('Digite uma opção válida!')
             return op
